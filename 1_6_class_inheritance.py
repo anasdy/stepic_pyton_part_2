@@ -116,7 +116,7 @@ class ClassTree:
         # одного из предков класса2
         else:
             for clss in self.clss_tree[clss_2]:
-                if self.f_class_parents_test(clss_1, clss_2):
+                if self.f_class_parents_test(clss_1, clss):
                     return True    
                 else:
                     continue        # else необязателен, но так нагляднее
