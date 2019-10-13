@@ -82,32 +82,55 @@ print(a.val)
 print(b.val)
 print(c.val)
 """
+##------------------------------------------------------------------------------
+#class Song:
+#    
+#    def __init__ (self, artist, song):
+#        self.artist = artist
+#        self.song = song
+#        self.tags = []
+#        
+#    def add_tags(self, *args):
+#        print(args)
+#        self.tags.extend(args)
+#        
+#        
+#        
+#song1 = Song("aaa", "bbbb")
+#song1.add_tags("Americana", "Country")
+#
+#
+#song2 = Song("bbbb", "ccccccccccc")
+#song2.add_tags("Russian", "Rock")
+#
+#print(song2.tags)
+
 #------------------------------------------------------------------------------
-class Song:
-    
-    def __init__ (self, artist, song):
-        self.artist = artist
-        self.song = song
-        self.tags = []
-        
-    def add_tags(self, *args):
-        print(args)
-        self.tags.extend(args)
-        
-        
-        
-song1 = Song("aaa", "bbbb")
-song1.add_tags("Americana", "Country")
+
+# хочу поиграть с try-except
+# что будет, если сначала проверка на division by zero, потом на arithmetic
+try:
+    foo() # 15/0
+except ZeroDivisionError:
+    print("ZeroDivisionError")
+except ArithmeticError:
+    print("ArithmeticError")
+except AssertionError:
+    print("AssertionError")
+# пустой except и as e
+
+#try:
+#    15/0
+#except as e: # - sintax error
+#    print(e)
+#
+#try:
+#    15/0
+#except Error as e: # - name Error is not defined
+#    print(e)
 
 
-song2 = Song("bbbb", "ccccccccccc")
-song2.add_tags("Russian", "Rock")
-
-print(song2.tags)
-
-
-
-
-
-
-
+try:
+    15/0
+except Exception as e: # - work!!!!
+    print(e)
