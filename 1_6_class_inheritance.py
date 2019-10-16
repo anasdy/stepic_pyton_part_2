@@ -135,12 +135,19 @@ n_clss = int(input())
 # список его предков как значение
 clss_stuct = ClassTree()
 for i in range(n_clss):
+    # читаем всю строку
     clss_name = input()
+    # если в ней есть :, то у класса есть список предков
     if ':' in  clss_name:
+        # отделяем имя класса от его предков
         clss_name, clss_parents = clss_name.split(" :")
+        # формируем список предков класса
         clss_parents = clss_parents.split()
+    # если : не было
     else:
+        # то список предков класса пуст
         clss_parents = []
+    # добавляем класс в словарь
     clss_stuct.clss_tree[clss_name] = clss_parents
 #---------------------------------------------------------
     
