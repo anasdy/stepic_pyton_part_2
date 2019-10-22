@@ -35,9 +35,44 @@ Created on Thu Oct 17 00:59:41 2019
 Структура исключений хранится в словаре, где ключ - имя исключения, а 
 значение - список предков.
 
-Прошрама читает структуру исключений, затем в цикле читаетсписок использованных
-исключений и сразу проверяет использовались ли ранее его предки.
+Прошрама читает структуру исключений, затем в цикле читает список 
+использованных исключений и сразу проверяет использовались ли ранее его предки.
 """
+class exc_tree_clss:
+    
+    def __init__(self):
+        # словарь для структуры исключений
+        # ключ - имя исключения, значение - список предков
+        self.exc_dict = dict()
+        
+        
+    #--------------------------------------------------------------------------
+    # Функуция определения вводилось ли уже исключение или его предок.
+   
+    # Аргументы функции:
+    # exc_1 - Имя класса 1, предполагаемого предка, тип str
+    # exc_2 - Имя класса 2, предполагаемого потомкаб тип str
+    
+    # Возвращаемое значение
+    # True - если exc_1 является предком exc_2 .
+    # False - в противном случае
+    #---------------------------------------------------------
+    def f_exc_parents_seach(self, exc, exc_list):
+        # Если оно уже есть в списке, значит писать не нужно
+        if exc in exc_list:
+            return True
+        else:
+            # если кто-то из предков есть в списке
+            for exc_i in self.exc_dict[exc]:
+                if self.f_exc_parents_seach(exc_i, exc_list):
+                    # то писать тоже не нужно
+                    return True
+                else:
+                    continue
+        return False
+
+
+
 
 #------------------------------------------------------------------------------
 
@@ -48,8 +83,8 @@ except ValueError:
     print("Value Error. Please try again!")
     n_exception = int(input())
 #------------------------------------------------
-# словарь для структуры исключений
-except_dict = dict()
+
+except_clss = exc_tree_clss()
 for i in range(n_exception):
     # читаем строку
     except_name = input()
@@ -64,7 +99,7 @@ for i in range(n_exception):
         # то список предков пуст
         except_parents = []
     # добавляем исключение в словарь
-    except_dict[except_name] = except_parents
+    except_clss.exc_dict[except_name] = except_parents
 
 #------------------------------------------------    
 # читаем количество использованных исключений
@@ -80,9 +115,8 @@ exception_list = []
 for i in range(m_exception):
     # читаем исключение
     exc = input()
-    for j in except_dict[exc]:
-        if j in exception_list:
-            print(exc)
-            break
+    if except_clss.f_exc_parents_seach(exc, exception_list):
+        print(exc)
+
     exception_list.append(exc)
 
