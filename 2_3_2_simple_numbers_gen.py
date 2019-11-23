@@ -11,30 +11,31 @@ Created on Tue Nov 19 02:32:53 2019
 
 def primes():
     # идем перебором от 2
+    i = 1
     while True:
-        print('primes generator')
-        i = 2
-        # проверяем на простоту
-        if f_is_simple_function(i):
-            # если простое - возвращаем его
+        i += 1
+        is_simple = f_is_simple_number_function(i)
+        if is_simple:
             yield i
-        # если нет, переходим к следующему
+        # если нет, переходим к следующему i
+        else:
+            continue
+        
     
     
     
-def f_is_simple_function(x): 
+def f_is_simple_number_function(x): 
     # Проверка является ли число простым
     # взяла метод перебора делителей
-    print("is isimple function")
-    for i in range(2,x):
-        print(i)
+    for i in range(2, x):
         if x % i == 0:
             return False
     return True
     
 
+   
 
-
-for i in range(5):
-    res = primes()
-    print('primes:', res)
+gen = primes()
+for j in range(3):
+    print('j = ', j)
+    print('primes = ', next(gen))
