@@ -18,17 +18,23 @@ import os.path
 
 
 py_dir_list = []
-# walk on directory
+# walk in directory
 for current_dir, dirs, files in os.walk("./main"):
     # look at all files
     for file in files:
         # look to file extension
         # if this is .py-file
         n = len(file)
-        if file[n - 3, n] == '.py':
-            # отрезать ./ в начале, записать в список, выйти из цикла
-            current_dir = 
-            py_dir_list.append(current_dir)
+        if file[n - 3: n] == ".py":
+            # cut ./, add in list, exit from loop
+            py_dir_list.append(current_dir[2:])
             break
-    py_dir_list.sort()
-    # записать в файл
+
+# sort in lexicographical order
+py_dir_list.sort()
+    
+# write in file
+with open("2_4_2_answer.txt", "w") as f:
+    for dir_el in py_dir_list:
+        dir_el = dir_el + "\n"
+        f.write(dir_el)
