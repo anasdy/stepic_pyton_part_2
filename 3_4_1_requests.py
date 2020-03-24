@@ -22,9 +22,7 @@ A есть тег <a href="B">, возможно с дополнительным
 #------------------------------------------------------------------------------
 
 import requests
-
-
-#------------------------------------------------------------------------------
+import lxml.html
 
 
 
@@ -34,15 +32,18 @@ a_url = input()
 b_url = input()
 
 # get A
+list_links = []
 res_a = requests.get(a_url)
 if res_a.status_code != 200:
     print("Error open URL ", a_url, "with code ", res_a.raise_for_status())
 else:
     print(res_a.text)
-    print(res_a.links)
+    #f_find_url(res_a.text)
+    html = lxml.html.document_fromstring(res_a.content)
+    for a in html.iter('a'):
+        list_links.append(a.get('href'))
 
-
-
+"""
 
 Ребятки, алгоритм тут довольно простой, если подумать:
 1. Скачивание страницы a (тут проверять на 404 или на исключения и если произошло -- No)
@@ -64,3 +65,4 @@ import requests
 html = lxml.html.document_fromstring(content)
 for a in html.iter('a'):
     list_links.append(a.get('href')) #  в этом списке у нас и появятся ссылки.
+"""
