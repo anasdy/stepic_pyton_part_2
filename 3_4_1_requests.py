@@ -39,11 +39,16 @@ if res_a.status_code != 200:
 else:
     print(res_a.text)
     #f_find_url(res_a.text)
+    
+    link = (lxml.html.fragment_fromstring(res_a.content, create_parent = 'a'))
+    print(link)
+    #list_links.append
+"""
     html = lxml.html.document_fromstring(res_a.content)
     for a in html.iter('a'):
         list_links.append(a.get('href'))
 
-"""
+
 
 Ребятки, алгоритм тут довольно простой, если подумать:
 1. Скачивание страницы a (тут проверять на 404 или на исключения и если произошло -- No)
