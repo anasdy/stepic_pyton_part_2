@@ -37,37 +37,11 @@ res_a = requests.get(a_url)
 if res_a.status_code != 200:
     print("Error open URL ", a_url, "with code ", res_a.raise_for_status())
 else:
-    print(res_a.text)
-    #f_find_url(res_a.text)
-    
-    link = (lxml.html.fragment_fromstring(res_a.content, create_parent = 'a'))
-    print(link)
+    # parsed html
+    parsed_a = lxml.html.fromstring(res_a.text)
+    # find links with xpath (look xml)
+    # //a - find all tag a
+    # //a/href - find all element href, wich have parent is a-tag
+    # @href - find atribute, value of href-tag
+    print(parsed_a.xpath('//a/@href'))
     #list_links.append
-"""
-    html = lxml.html.document_fromstring(res_a.content)
-    for a in html.iter('a'):
-        list_links.append(a.get('href'))
-
-
-
-Ребятки, алгоритм тут довольно простой, если подумать:
-1. Скачивание страницы a (тут проверять на 404 или на исключения и если произошло -- No)
-
-2. Разбор страницы a и сбор ссылок sub_url в ней (лучший способ использую lxml и xpath запрос "//a/@href", который собирает все значения атрибута href у тегов a на странице и возвращает список строк)
-
-3. В цикле перебираем sub_url и пытаемся их скачать (не забудьте проверять 404 и ловить исключения, только в данном случае не нужно сразу No говорить -- можем не перебрать все ссылки)
-
-4. На странице sub_url ищем ссылку на b, если нашли прерываем циклы и пишем Yes, если не нашли -- перебираем дальше. Если же после перебора sub_url не нашлось ни одной ссылки пишем No
-
-
-
-
-Обошёлся без регулярных выражений. Потребовались следующие модули:
-import lxml.html
-import requests
-
-Использовать можно так:
-html = lxml.html.document_fromstring(content)
-for a in html.iter('a'):
-    list_links.append(a.get('href')) #  в этом списке у нас и появятся ссылки.
-"""
